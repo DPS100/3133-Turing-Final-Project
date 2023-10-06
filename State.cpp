@@ -1,6 +1,5 @@
 #include "State.hpp"
 
-
 State::State(String name = "", std::map<char, Transition> transitions, String* alphabet):
     name(name),
     transitions(transitions),
@@ -12,7 +11,7 @@ State::State(String name = "", std::map<char, Transition> transitions, String* a
     }
 
     if(transitions.size() != alphabet->size()) {
-        throw InvalidStateException("Alphabet must have a single corresponding action");
+        throw InvalidStateException("Symbols in alphabet must have a single corresponding action");
     }
 
     for(const std::pair<const char, Transition> i : transitions) {
@@ -37,4 +36,8 @@ Transition State::next(char symbol) {
 
 String State::getName() {
     return name;
+}
+
+bool State::isTerminated() {
+    return terminated;
 }

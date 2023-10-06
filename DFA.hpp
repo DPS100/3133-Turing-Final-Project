@@ -1,18 +1,16 @@
 #ifndef DFA_HPP
 #define DFA_HPP
 
-#include <string>
-typedef std::string String;
+#include <vector>
+#include "State.hpp"
 
 class DFA {
     private:
-        int states;
-        int hi;
+        std::vector<State*> states;
 
     public:
-        // TODO warn states with same name?
-        
-        DFA(int states, );
+
+        DFA(std::vector<State*> states);
 };
 
 #endif
