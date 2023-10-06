@@ -1,15 +1,11 @@
 #include "State.hpp"
 
-State::State(String name = "", std::map<char, Transition> transitions, String* alphabet):
+State::State(String name = "", std::map<char, Transition> transitions):
     name(name),
     transitions(transitions),
-    alphabet(alphabet){
+    alphabet(AlphabetWrapper::getAlphabet()) {
  
     // Ensure all parameters exist
-    if(alphabet == nullptr) {
-        throw InvalidStateException("Alphabet not defined");
-    }
-
     if(transitions.size() != alphabet->size()) {
         throw InvalidStateException("Symbols in alphabet must have a single corresponding action");
     }
@@ -20,7 +16,7 @@ State::State(String name = "", std::map<char, Transition> transitions, String* a
             throw InvalidStateException("State referenced by transition does not exist");
         }
 
-        if(alphabet->find(transition.first) == String::npos) {
+        if(!AlphabetWrapper::inAlphabet(transition.first)) {
             throw InvalidStateException("Transition exists for character undefined by alphabet");
         }
     }

@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include "AlphabetWrapper.hpp"
 typedef std::string String;
 typedef std::pair<String, State*> Transition;
 
@@ -22,11 +23,10 @@ class State {
     public:
         /**
          * @brief Construct a new State object. 
-         * @param size
          * @param name
          * @param transitions Mapped alphabet symbols to target state and transition action to take
          */
-        State(String name = "", std::map<char, Transition> transitions, String* alphabet);
+        State(String name = "", std::map<char, Transition> transitions);
         /**
          * @brief Get the next state and corresponding transition action
          * 
