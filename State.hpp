@@ -17,7 +17,6 @@ class State {
     protected:
         String name;
         std::map<char, Transition> transitions;
-        bool terminated = false;
         String* alphabet;
 
     public:
@@ -43,6 +42,14 @@ class State {
         const static char READ = 'r';
         const static char WRITE = 'w';
         const static String ACTIONS;
+};
+
+enum action{
+    NO_OP = 'n',
+    RIGHT = '>',
+    LEFT = '<',
+    READ = 'r',
+    WRITE = 'w'
 };
 
 class InvalidStateException : public std::runtime_error {

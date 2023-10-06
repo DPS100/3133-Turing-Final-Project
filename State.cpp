@@ -1,5 +1,6 @@
 #include "State.hpp"
 
+// TODO make abstract with abstract function representing the state transition action?
 State::State(String name = "", std::map<char, Transition> transitions):
     name(name),
     transitions(transitions),
@@ -32,8 +33,4 @@ Transition State::next(char symbol) {
 
 String State::getName() {
     return name;
-}
-
-bool State::isTerminated() {
-    return terminated;
 }

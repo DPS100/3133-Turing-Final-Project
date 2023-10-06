@@ -6,12 +6,14 @@
 
 class DFA {
     private:
+        // Techincally don't need vector/array? need to think abt this
         std::vector<State*> states;
         State* currentState;
 
     public:
 
         DFA(std::vector<State*> states);
+        DFA();
         /**
          * @brief 
          * 
