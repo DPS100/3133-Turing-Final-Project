@@ -1,6 +1,6 @@
 #include "Turing.hpp"
 
-Turing::Turing(String input) :
+Turing::Turing(std::string input) :
     head(0),
     tape(std::vector<char>(input.size(), '\0')){
     for(const char c : input) {
@@ -10,6 +10,15 @@ Turing::Turing(String input) :
 
 Turing::Turing() {
     *this = Turing("");
+}
+
+Turing::Turing(std::vector<State*> states) :
+    DFA(states) {
+}
+
+Turing::Turing(std::vector<State*> states, std::string input) :
+    DFA(states) {
+    *this = Turing(input);
 }
 
 char Turing::read() {
@@ -25,7 +34,7 @@ void Turing::write(char symbol) {
         tape.reserve(head);
         tape.at(head) = symbol;
     } else {
-        negativeTape.reserve(-head);
+        negativeTape.reserve(-head);  
         negativeTape.at(-head) = symbol;
     }
 }
@@ -41,8 +50,20 @@ bool Turing::run() {
 
 State* Turing::step() {
     // Execute instruction
-    // switch(instruction) {
-    //     case "r":
-
-    // }
+    std::string action = this->parse(read());
+    switch(action.at(0)) {
+        case State::Action::RIGHT:
+            head++;
+            break;
+        case State::Action::LEFT:
+            head--;
+            break;
+        case State::Action::WRITE:
+            tape.at(head) = action.at(1);
+        default:
+        case State::Action::READ:
+        case State::Action::NO_OP:
+            break;
+    }
+    return this->getCurrentState();
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-typedef std::string String;
+#include "Turing.hpp"
 
 /**
  * @brief 
@@ -9,7 +9,10 @@ typedef std::string String;
  * @param argv Array of argument
  * @return int 
  */
-int main(int arc, String* argv) {
-    std::cout << "Hello, World!\n";
+int main(int arc, char** argv) {
+    AlphabetWrapper::setAlphabet(new std::string(""));
+    Turing machine;
+    std::cout << machine.getCurrentState()->getName();
+    std::cout << std::endl;
     return 0;
 }

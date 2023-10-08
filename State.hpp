@@ -7,17 +7,19 @@
 #include <map>
 #include <utility>
 #include "AlphabetWrapper.hpp"
-typedef std::string String;
-typedef std::pair<String, State*> Transition;
+
+class State;
+
+typedef std::pair<std::string, State*> Transition;
 
 /**
  * @brief State to be used by a DFA. Pretty much a node in a directed graph.
  */
 class State {
     protected:
-        String name;
+        std::string name;
         std::map<char, Transition> transitions;
-        String* alphabet;
+        std::string* alphabet;
 
     public:
         /**
@@ -25,7 +27,7 @@ class State {
          * @param name
          * @param transitions Mapped alphabet symbols to target state and transition action to take
          */
-        State(String name = "", std::map<char, Transition> transitions);
+        State(std::string name, std::map<char, Transition> transitions);
         /**
          * @brief Get the next state and corresponding transition action
          * 
@@ -33,28 +35,22 @@ class State {
          * @return Transition
          */
         Transition next(char symbol);
-        String getName();
+        std::string getName();
         bool isTerminated();
 
-        const static char NO_OP = 'n';
-        const static char RIGHT = '>';
-        const static char LEFT = '<';
-        const static char READ = 'r';
-        const static char WRITE = 'w';
-        const static String ACTIONS;
+        enum Action{
+            NO_OP = 'n',
+            RIGHT = '>',
+            LEFT = '<',
+            READ = 'r',
+            WRITE = 'w'
+        };
 };
 
-enum action{
-    NO_OP = 'n',
-    RIGHT = '>',
-    LEFT = '<',
-    READ = 'r',
-    WRITE = 'w'
-};
 
 class InvalidStateException : public std::runtime_error {
     public:
-        InvalidStateException(const String message) : std::runtime_error(message) {}
+        InvalidStateException(const std::string message) : std::runtime_error(message) {}
 };
 
 #endif

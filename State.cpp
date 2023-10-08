@@ -1,7 +1,7 @@
 #include "State.hpp"
 
 // TODO make abstract with abstract function representing the state transition action?
-State::State(String name = "", std::map<char, Transition> transitions):
+State::State(std::string name, std::map<char, Transition> transitions):
     name(name),
     transitions(transitions),
     alphabet(AlphabetWrapper::getAlphabet()) {
@@ -24,13 +24,13 @@ State::State(String name = "", std::map<char, Transition> transitions):
 }
 
 Transition State::next(char symbol) {
-    if(alphabet->find(symbol) == String::npos) {
-        String message = "Alphabet does not contain character ";
+    if(alphabet->find(symbol) == std::string::npos) {
+        std::string message = "Alphabet does not contain character ";
         throw InvalidStateException(message.append(&symbol, 1));
     }
     return transitions[symbol];
 }
 
-String State::getName() {
+std::string State::getName() {
     return name;
 }

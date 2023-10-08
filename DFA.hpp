@@ -1,6 +1,7 @@
 #ifndef DFA_HPP
 #define DFA_HPP
 
+#include <string>
 #include <vector>
 #include "State.hpp"
 
@@ -15,12 +16,12 @@ class DFA {
         DFA(std::vector<State*> states);
         DFA();
         /**
-         * @brief 
+         * @brief Reads a character and moves to the targeted state
          * 
          * @param c 
          * @return String action to take
          */
-        String parse(char c);
+        std::string parse(char c);
         State* getCurrentState();
         State* setCurrentState(State* state);
 };

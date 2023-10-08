@@ -12,14 +12,12 @@ DFA::DFA(std::vector<State*> states) :
 }
 
 DFA::DFA() {
-    State* accept = new State("Accept");
-    State* reject = new State("Reject");
+    State* accept = new State(std::string("Accept"), std::map<char, Transition>());
     states.push_back(accept);
-    states.push_back(reject);
     currentState = accept;
 }
 
-String DFA::parse(char c) {
+std::string DFA::parse(char c) {
     Transition t = currentState->next(c);
     currentState = t.second;
     return t.first;
