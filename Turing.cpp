@@ -61,9 +61,21 @@ State* Turing::step() {
         case State::Action::WRITE:
             tape.at(head) = action.at(1);
         default:
-        case State::Action::READ:
         case State::Action::NO_OP:
             break;
     }
     return this->getCurrentState();
+}
+
+std::string Turing::getTape() {
+    std::string tapeString = "";
+    for(const char c : Turing::negativeTape) {
+        std::string tempString = std::string(1, c);
+        tempString.append(tapeString);
+        tapeString = tempString;
+    }
+    for(const char c : Turing::tape) {
+        tapeString.append(std::string(1,c));
+    }
+    return tapeString;
 }

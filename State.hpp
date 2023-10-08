@@ -42,7 +42,6 @@ class State {
             NO_OP = 'n',
             RIGHT = '>',
             LEFT = '<',
-            READ = 'r',
             WRITE = 'w'
         };
 };

@@ -12,7 +12,8 @@
 int main(int arc, char** argv) {
     AlphabetWrapper::setAlphabet(new std::string(""));
     Turing machine;
-    std::cout << machine.getCurrentState()->getName();
+    std::cout << machine.getCurrentState()->getName() << std::endl;
+    std::cout << machine.getCurrentState()->next('e').first << machine.getCurrentState()->next('e').second;
     std::cout << std::endl;
     return 0;
 }
