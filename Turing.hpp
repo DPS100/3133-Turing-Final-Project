@@ -15,6 +15,7 @@ class Turing : public DFA{
     public:
         Turing();
         Turing(std::string input);
+        Turing(std::vector<State*> states, std::string input);
         Turing(std::vector<State*> states, State* accept, State* decline);
         Turing(std::vector<State*> states, State* accept, State* decline, std::string input);
         /**

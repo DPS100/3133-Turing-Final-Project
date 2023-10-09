@@ -10,6 +10,12 @@
 
 class State;
 
+/**
+ * @brief 
+ * 
+ * @param std::string Action to take before transition
+ * @param State* Target state to transition to
+ */
 typedef std::pair<std::string, State*> Transition;
 
 /**
@@ -29,6 +35,11 @@ class State {
          */
         State(std::string name, std::map<char, Transition> transitions);
         /**
+         * @brief Construct an empty State object
+         * 
+         */
+        State(std::string name);
+        /**
          * @brief Get the next state and corresponding transition action
          * 
          * @param symbol Alphabet symbol that defines the next transition
@@ -37,6 +48,8 @@ class State {
         Transition next(char symbol);
         std::string getName();
         bool isTerminated();
+        std::map<char, Transition> checkTransitions(std::map<char, Transition> transitions);
+        void setTransitions(std::map<char, Transition> transitions);
 
         enum Action{
             NO_OP = 'n',

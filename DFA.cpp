@@ -1,4 +1,5 @@
 #include "DFA.hpp"
+#include <iostream>
 
 DFA::DFA(std::vector<State*> states, State* accept, State* decline) :
     states(states),
@@ -13,7 +14,29 @@ DFA::DFA(std::vector<State*> states, State* accept, State* decline) :
     }
 
     if(accept == nullptr || decline == nullptr) {
-        throw InvalidStateException("Null state in creation of DFA");
+        throw InvalidStateException("Null teminating state in creation of DFA");
+    }
+}
+
+DFA::DFA(std::vector<State*> states) :
+    states(states),
+    currentState(states.at(0)),
+    accept(nullptr), 
+    decline(nullptr) {
+    
+    for(int i = 0; i < states.size(); i++) {
+        State* state = states.at(i);
+        if(state == nullptr) {
+            throw InvalidStateException("Null state in creation of DFA");
+        } else if(state->getName() == "Accept"){
+            accept = state;
+        } else if(state->getName() == "Decline") {
+            decline = state;
+        }
+    }
+
+    if(accept == nullptr) {
+        throw InvalidStateException("Null accept state in creation of DFA");
     }
 }
 

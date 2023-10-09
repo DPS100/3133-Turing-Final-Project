@@ -12,8 +12,14 @@ Turing::Turing() {
     *this = Turing("");
 }
 
+Turing::Turing(std::vector<State*> states, std::string input) :
+    DFA(states) {
+    *this = Turing(input);
+}
+
 Turing::Turing(std::vector<State*> states, State* accept, State* decline) :
     DFA(states, accept, decline) {
+    *this = Turing();
 }
 
 Turing::Turing(std::vector<State*> states, State* accept, State* decline, std::string input) :

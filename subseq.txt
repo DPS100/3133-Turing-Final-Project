@@ -15,6 +15,7 @@ Write Blank to Move Right to Start
 Move Right to Start
 
 #10
+00#100
 
 2N 5> 4>
 2N 2N 2N
