@@ -12,12 +12,12 @@ Turing::Turing() {
     *this = Turing("");
 }
 
-Turing::Turing(std::vector<State*> states) :
-    DFA(states) {
+Turing::Turing(std::vector<State*> states, State* accept, State* decline) :
+    DFA(states, accept, decline) {
 }
 
-Turing::Turing(std::vector<State*> states, std::string input) :
-    DFA(states) {
+Turing::Turing(std::vector<State*> states, State* accept, State* decline, std::string input) :
+    DFA(states, accept, decline) {
     *this = Turing(input);
 }
 
@@ -44,7 +44,9 @@ void Turing::move(bool positive) {
 }
 
 bool Turing::run() {
-    // First instruction is always read?
+    while(this->getCurrentState() != this->accept && this->getCurrentState() != this->decline) {
+        step();
+    }
     return true;
 }
 

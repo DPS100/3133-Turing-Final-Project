@@ -15,8 +15,8 @@ class Turing : public DFA{
     public:
         Turing();
         Turing(std::string input);
-        Turing(std::vector<State*> states);
-        Turing(std::vector<State*> states, std::string input);
+        Turing(std::vector<State*> states, State* accept, State* decline);
+        Turing(std::vector<State*> states, State* accept, State* decline, std::string input);
         /**
          * @brief Read the current symbol the head of the machine is pointing to
          * 
@@ -43,6 +43,15 @@ class Turing : public DFA{
          * @return false 
          */
         bool run();
+        /**
+         * @brief Run the turing machine until a halt occurs.
+         * @warning Halting is not garaunteed. May hang program.
+         * 
+         * @param msDelay Millisecond delay between steps when printing to console. Set to 0 to disable printing.
+         * @return true 
+         * @return false 
+         */
+        bool run(int msDelay);
         /**
          * @brief Advance one step on the turing machine, and return the current state
          * 

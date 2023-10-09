@@ -12,7 +12,7 @@ Give a Turing machine that gets as input two arbitrary strings *`x`* and *`y`* s
 - [x] DFA object:
   - State machine that moves based on input, and takes an action based on the input
 - [x] Tape object:
-  - Linear tape that can be written to/read from. Techincally unlimited length, dynamically sized vector? Also has an input section
+  - Linear tape that can be written to/read from. Techincally unlimited length, dynamically sized vector? Also has an input section. First letter in alphabet should be null character
 - [x] Turing machine:
   - Combination of DFA and tape
   - Ability to run instantly? Step? Breakpoints? Represent DFA/Tape while running? Print state changes/number of moves?

@@ -11,9 +11,13 @@ class DFA {
         std::vector<State*> states;
         State* currentState;
 
+    protected:
+        State* accept;
+        State* decline;
+
     public:
 
-        DFA(std::vector<State*> states);
+        DFA(std::vector<State*> states, State* accept, State* decline);
         DFA();
         /**
          * @brief Reads a character and moves to the targeted state

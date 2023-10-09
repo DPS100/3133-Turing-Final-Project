@@ -1,0 +1,33 @@
+Start
+Accept
+Decline
+Read 0 lock
+Read 1 lock
+Read 0 unlock
+Read 1 unlock
+Clear 0 lock 1
+Clear 1 lock 1
+Clear 0 lock 2
+Clear 1 lock 2
+Move Left to Clear 0 Lock 1
+Move Left to Clear 1 Lock 1
+Write Blank to Move Right to Start
+Move Right to Start
+
+#10
+
+2N 5> 4>
+2N 2N 2N
+3N 3N 3N
+6> 4> 4>
+7> 5> 5>
+3N 6> 12W#
+3N 13W# 7>
+10< 8< 8<
+11< 9< 9<
+14> 10< 10<
+14> 11< 11<
+8N 8N 8N
+9N 9N 9N
+15W# 15W# 15W#
+1> 1> 1>

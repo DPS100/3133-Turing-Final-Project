@@ -10,7 +10,7 @@
  * @return int 
  */
 int main(int arc, char** argv) {
-    AlphabetWrapper::setAlphabet(new std::string(""));
+    AlphabetWrapper::setAlphabet(new std::string("01#"));
     Turing machine;
     std::cout << machine.getCurrentState()->getName() << std::endl;
     std::cout << machine.getCurrentState()->next('e').first << machine.getCurrentState()->next('e').second;

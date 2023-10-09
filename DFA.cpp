@@ -1,13 +1,19 @@
 #include "DFA.hpp"
 
-DFA::DFA(std::vector<State*> states) :
+DFA::DFA(std::vector<State*> states, State* accept, State* decline) :
     states(states),
-    currentState(states.at(0)) {
+    currentState(states.at(0)),
+    accept(accept),
+    decline(decline) {
         
     for(const State* state : states) {
         if(state == nullptr) {
             throw InvalidStateException("Null state in creation of DFA");
         }
+    }
+
+    if(accept == nullptr || decline == nullptr) {
+        throw InvalidStateException("Null state in creation of DFA");
     }
 }
 
