@@ -1,8 +1,10 @@
 #include "Turing.hpp"
 
+#include <iostream>
+
 Turing::Turing(std::string input) :
     head(0),
-    tape(std::vector<char>(input.size(), '\0')){
+    tape(std::vector<char>(input.size())){
     populateTape(input);
 }
 
@@ -12,7 +14,7 @@ Turing::Turing() {
 
 Turing::Turing(std::vector<State*> states, std::string input) :
     DFA(states),
-    tape(std::vector<char>(input.size(), '\0')){
+    tape(std::vector<char>(input.size())){
     populateTape(input);
 }
 
@@ -27,10 +29,17 @@ Turing::Turing(std::vector<State*> states, State* accept, State* decline, std::s
 }
 
 char Turing::read() {
+    // If head is out of range, write the first (presumably blank) character
     if(head >= 0) {
+        if(head > tape.size()) {
+            tape.push_back(AlphabetWrapper::getAlphabet()->at(0));
+        }
         return tape.at(head);
     } else {
-        return negativeTape.at(-head);
+        if(-head > negativeTape.size()) {
+            negativeTape.push_back(AlphabetWrapper::getAlphabet()->at(0));
+        }
+        return negativeTape.at(-head - 1);
     }
 }
 
@@ -50,9 +59,13 @@ void Turing::move(bool positive) {
 
 bool Turing::run() {
     while(this->getCurrentState() != this->accept && this->getCurrentState() != this->decline) {
-        step();
+        std::cout << this->step()->getName() << std::endl;
     }
-    return true;
+    for(const char c : tape) {
+        std::cout << c;
+    }
+    std::cout << std::endl;
+    return this->getCurrentState() == this->accept;
 }
 
 State* Turing::step() {
@@ -88,7 +101,7 @@ std::string Turing::getTape() {
 }
 
 void Turing::populateTape(std::string input) {
-    for(const char c : input) {
-        tape.push_back(c);
+    for(int i = 0; i < input.size(); i++) {
+        tape.at(i) = input.at(i);
     }
 }

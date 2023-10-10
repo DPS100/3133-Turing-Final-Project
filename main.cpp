@@ -3,6 +3,8 @@
 #include <fstream>
 #include "Turing.hpp"
 
+void trimString(std::string* string, int trimSize);
+
 /**
  * @brief 
  * 
@@ -39,19 +41,21 @@ int main(int argc, char** argv) {
             break;
         }
         // Remove the last character from the state
-        state = state.substr(0, state.length() - emptyLineLength);
+        trimString(&state, emptyLineLength);
         // std::cout << state << std::endl;
         states.push_back(new State(state));
     }
 
     // Read language
     std::getline(inputFile, alphabet);
+    trimString(&alphabet, emptyLineLength);
     std::cout << "Alphabet: " << alphabet << std::endl;
     AlphabetWrapper::setAlphabet(&alphabet);
 
     // Read starting tape
     std::string tape;
     std::getline(inputFile, tape);
+    trimString(&tape, emptyLineLength);
     std::cout << "Tape: " << tape << std::endl;
 
     // Read transitions
@@ -71,7 +75,7 @@ int main(int argc, char** argv) {
                 int targetState = stoi(transitionStrings[i].substr(0, digitIndex)) - 1;
                 std::string instruction = transitionStrings[i].substr(digitIndex);
                 // std::cout << targetState << instruction << std::endl;
-                transitions.emplace(symbol, Transition(transitionStrings[i], states.at(targetState)));
+                transitions.emplace(symbol, Transition(instruction, states.at(targetState)));
                 // std::cout << "When reading symbol " << symbol << ", take action " << instruction << " and move to state " << targetState << ": " << states.at(targetState)->getName() << std::endl;
             }
             states.at(index / alphabet.length())->setTransitions(transitions);
@@ -81,6 +85,10 @@ int main(int argc, char** argv) {
     states.shrink_to_fit();
 
     Turing machine(states, tape);
-    std::cout << machine.getCurrentState()->getName() << std::endl;
-    return 0;
+    
+    return machine.run();
+}
+
+void trimString(std::string* string, int trimSize) {
+    *string = string->substr(0, string->length() - trimSize);
 }
