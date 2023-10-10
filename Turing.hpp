@@ -59,12 +59,14 @@ class Turing : public DFA{
          * @return State* 
          */
         State* step();
+        State* step(bool print);
         /**
          * @brief Get the Tape object
          * 
          * @return std::string String representation of tape
          */
         std::string getTape();
+        void printTape();
         void populateTape(std::string input);
 };
 

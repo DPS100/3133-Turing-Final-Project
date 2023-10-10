@@ -85,8 +85,20 @@ int main(int argc, char** argv) {
     states.shrink_to_fit();
 
     Turing machine(states, tape);
-    
-    return machine.run();
+    machine.printTape();
+    std::cout << machine.getCurrentState()->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    std::cout << machine.step(true)->getName() << std::endl;
+    return 0;
 }
 
 void trimString(std::string* string, int trimSize) {

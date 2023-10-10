@@ -48,8 +48,8 @@ void Turing::write(char symbol) {
         tape.reserve(head);
         tape.at(head) = symbol;
     } else {
-        negativeTape.reserve(-head);  
-        negativeTape.at(-head) = symbol;
+        negativeTape.reserve(-head - 1);  
+        negativeTape.at(-head - 1) = symbol;
     }
 }
 
@@ -59,16 +59,13 @@ void Turing::move(bool positive) {
 
 bool Turing::run() {
     while(this->getCurrentState() != this->accept && this->getCurrentState() != this->decline) {
-        std::cout << this->step()->getName() << std::endl;
+        printTape();
+        std::cout << this->step(false)->getName() << std::endl;
     }
-    for(const char c : tape) {
-        std::cout << c;
-    }
-    std::cout << std::endl;
     return this->getCurrentState() == this->accept;
 }
 
-State* Turing::step() {
+State* Turing::step(bool print) {
     // Execute instruction
     std::string action = this->parse(read());
     switch(action.at(0)) {
@@ -84,7 +81,12 @@ State* Turing::step() {
         case State::Action::NO_OP:
             break;
     }
+    if(print) printTape();
     return this->getCurrentState();
+}
+
+State* Turing::step() {
+    return step(false);
 }
 
 std::string Turing::getTape() {
@@ -98,6 +100,23 @@ std::string Turing::getTape() {
         tapeString.append(std::string(1,c));
     }
     return tapeString;
+}
+
+void Turing::printTape() {
+    for(int i = (head < 0 ? head : 0); i < tape.size(); i++) {
+        char c;
+        if(i < 0) {
+            c = negativeTape.at(-i - 1);
+        } else {
+            c = tape.at(i);
+        }
+        if(i == head) {
+            std::cout << '[' <<  c << ']';
+        } else {
+            std::cout << c;
+        }
+    }
+    std::cout << std::endl;
 }
 
 void Turing::populateTape(std::string input) {
