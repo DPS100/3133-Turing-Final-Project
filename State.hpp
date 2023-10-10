@@ -52,10 +52,10 @@ class State {
         void setTransitions(std::map<char, Transition> transitions);
 
         enum Action{
-            NO_OP = 'n',
+            NO_OP = 'N',
             RIGHT = '>',
             LEFT = '<',
-            WRITE = 'w'
+            WRITE = 'W'
         };
 };
 

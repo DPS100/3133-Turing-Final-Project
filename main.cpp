@@ -85,19 +85,9 @@ int main(int argc, char** argv) {
     states.shrink_to_fit();
 
     Turing machine(states, tape);
-    machine.printTape();
-    std::cout << machine.getCurrentState()->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
-    std::cout << machine.step(true)->getName() << std::endl;
+    for(int i = 0; i < 20; i++) {
+        machine.step(true);
+    }
     return 0;
 }
 

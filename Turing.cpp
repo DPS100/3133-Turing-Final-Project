@@ -31,12 +31,12 @@ Turing::Turing(std::vector<State*> states, State* accept, State* decline, std::s
 char Turing::read() {
     // If head is out of range, write the first (presumably blank) character
     if(head >= 0) {
-        if(head > tape.size()) {
+        if(head == tape.size()) {
             tape.push_back(AlphabetWrapper::getAlphabet()->at(0));
         }
         return tape.at(head);
     } else {
-        if(-head > negativeTape.size()) {
+        if(-head - 1 == negativeTape.size()) {
             negativeTape.push_back(AlphabetWrapper::getAlphabet()->at(0));
         }
         return negativeTape.at(-head - 1);
@@ -67,21 +67,26 @@ bool Turing::run() {
 
 State* Turing::step(bool print) {
     // Execute instruction
-    std::string action = this->parse(read());
+    char symbol = read();
+    if(print) {
+        std::cout << this->getCurrentState()->getName() << std::endl;
+        printTape();
+    }
+    std::string action = this->parse(symbol);
     switch(action.at(0)) {
         case State::Action::RIGHT:
-            head++;
+            move(true);
             break;
         case State::Action::LEFT:
-            head--;
+            move(false);
             break;
         case State::Action::WRITE:
             tape.at(head) = action.at(1);
+            break;
         default:
         case State::Action::NO_OP:
             break;
     }
-    if(print) printTape();
     return this->getCurrentState();
 }
 
