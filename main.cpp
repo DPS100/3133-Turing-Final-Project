@@ -32,25 +32,28 @@ int main(int argc, char** argv) {
     // Read states at top of file
     std::vector<State*> states;
     std::string state;
+    std::getline(inputFile, state);
+    int emptyLineLength = state.length();
     while(std::getline(inputFile, state)) {
-        if(state.length() == 1) { // Empty line
+        if(state.length() == emptyLineLength) { // Empty line
             break;
         }
-        if (!state.empty()) {
-            // Remove the last character from the state
-            state = state.substr(0, state.length() - 1);
-        }
+        // Remove the last character from the state
+        state = state.substr(0, state.length() - emptyLineLength);
+        // std::cout << state << std::endl;
         states.push_back(new State(state));
     }
 
     // Read language
-    inputFile >> alphabet;
+    std::getline(inputFile, alphabet);
+    std::cout << "Alphabet: " << alphabet << std::endl;
     AlphabetWrapper::setAlphabet(&alphabet);
 
     // Read starting tape
     std::string tape;
-    inputFile >> tape;
-    
+    std::getline(inputFile, tape);
+    std::cout << "Tape: " << tape << std::endl;
+
     // Read transitions
     std::string transitionStrings[alphabet.length()];
     int index = 0;
@@ -79,7 +82,5 @@ int main(int argc, char** argv) {
 
     Turing machine(states, tape);
     std::cout << machine.getCurrentState()->getName() << std::endl;
-    std::cout << machine.getCurrentState()->next('e').first << machine.getCurrentState()->next('e').second;
-    std::cout << std::endl;
     return 0;
 }

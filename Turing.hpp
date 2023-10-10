@@ -65,6 +65,7 @@ class Turing : public DFA{
          * @return std::string String representation of tape
          */
         std::string getTape();
+        void populateTape(std::string input);
 };
 
 #endif

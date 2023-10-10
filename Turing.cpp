@@ -3,9 +3,7 @@
 Turing::Turing(std::string input) :
     head(0),
     tape(std::vector<char>(input.size(), '\0')){
-    for(const char c : input) {
-        tape.push_back(c);
-    }
+    populateTape(input);
 }
 
 Turing::Turing() {
@@ -13,18 +11,19 @@ Turing::Turing() {
 }
 
 Turing::Turing(std::vector<State*> states, std::string input) :
-    DFA(states) {
-    *this = Turing(input);
+    DFA(states),
+    tape(std::vector<char>(input.size(), '\0')){
+    populateTape(input);
 }
 
 Turing::Turing(std::vector<State*> states, State* accept, State* decline) :
     DFA(states, accept, decline) {
-    *this = Turing();
+    populateTape("");
 }
 
 Turing::Turing(std::vector<State*> states, State* accept, State* decline, std::string input) :
     DFA(states, accept, decline) {
-    *this = Turing(input);
+    populateTape(input);
 }
 
 char Turing::read() {
@@ -86,4 +85,10 @@ std::string Turing::getTape() {
         tapeString.append(std::string(1,c));
     }
     return tapeString;
+}
+
+void Turing::populateTape(std::string input) {
+    for(const char c : input) {
+        tape.push_back(c);
+    }
 }
