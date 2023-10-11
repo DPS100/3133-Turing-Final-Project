@@ -2,8 +2,8 @@
 Start
 Accept
 Decline
-Find target
-Read target
+Find Target
+Target
 Go end Find 0 lock
 Go end Find 1 lock
 Go end Find 0 unlock
@@ -12,27 +12,27 @@ Find 0
 Find 1
 Write blank Find 0
 Write blank Find 1
-Found target
+Found Target
 Go end lock
 Write over End
-Go target
+Go Target
 Move pre-target
-Read pre-target
+Pre-target
 Append 1 lock 1
 Append 0 lock 1
-Append 1 lock 3
-Append 0 lock 3
+Append 1 lock 2
+Append 0 lock 2
 Append 1 unlock
 Append 0 unlock
 Append 1
 Append 0
-Back to read lock 1
 Back to read lock 2
 Back to read unlock
-Back to read lock 0
+Back to read
+Back to read lock 1
 
 #10
-000#0100
+00#100
 
 2N 4> 4>
 2N 2N 2N

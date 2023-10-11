@@ -3,15 +3,13 @@
 
 #include <stdexcept>
 #include <string>
-#include <vector>
 #include <map>
-#include <utility>
 #include "AlphabetWrapper.hpp"
 
 class State;
 
 /**
- * @brief 
+ * @brief
  * 
  * @param std::string Action to take before transition
  * @param State* Target state to transition to
@@ -26,12 +24,20 @@ class State {
         std::string name;
         std::map<char, Transition> transitions;
         std::string* alphabet;
+        /**
+         * @brief Helper to validate all transitions.
+         * 
+         * @param transitions 
+         * @return std::map<char, Transition> 
+         * @throws State::InvalidStateException if a transition is not valid
+         */
+        std::map<char, Transition> checkTransitions(std::map<char, Transition> transitions);
 
     public:
         /**
          * @brief Construct a new State object. 
          * @param name
-         * @param transitions Mapped alphabet symbols to target state and transition action to take
+         * @param transitions Mapped alphabet symbols and corresponding transition
          */
         State(std::string name, std::map<char, Transition> transitions);
         /**
@@ -40,17 +46,29 @@ class State {
          */
         State(std::string name);
         /**
-         * @brief Get the next state and corresponding transition action
+         * @brief Peek the next state and corresponding transition action
          * 
          * @param symbol Alphabet symbol that defines the next transition
          * @return Transition
          */
         Transition next(char symbol);
+        /**
+         * @brief Get this state's name
+         * 
+         * @return std::string 
+         */
         std::string getName();
-        bool isTerminated();
-        std::map<char, Transition> checkTransitions(std::map<char, Transition> transitions);
+        /**
+         * @brief Set the Transitions object
+         * 
+         * @param transitions 
+         */
         void setTransitions(std::map<char, Transition> transitions);
 
+        /**
+         * @brief Four defined actions the turing machine can make
+         * 
+         */
         enum Action{
             NO_OP = 'N',
             RIGHT = '>',

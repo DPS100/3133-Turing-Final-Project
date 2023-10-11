@@ -20,7 +20,7 @@ Transition State::next(char symbol) {
         std::string message = "Alphabet does not contain character ";
         throw InvalidStateException(message.append(&symbol, 1));
     }
-    return transitions[symbol];
+    return transitions.at(symbol);
 }
 
 std::string State::getName() {
