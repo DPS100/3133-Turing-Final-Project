@@ -40,7 +40,7 @@ See [subseq.txt](subseq.txt) for a demo input file.
 The input file to define a Turing machine is formatted like so:
 - *Blank line*
 - State names
-- *Blank like*
+- *Blank line*
 - Alphabet
 - Input tape
 - *Blank line*
