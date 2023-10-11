@@ -65,7 +65,7 @@ There are three special states:
 - Accept state: Your machine must have at least one of these two terminating states to halt. The default program assumes the accept state to be named "Accept".
 - Decline state: Your machine must have at least one of these two terminating states to halt. The default program assumes the decline state to be named "Decline".
 
-All three of these states can be set manually by using a different Turing machine constructor and recompiling the program. See [src/Turing.hpp](Turing.hpp).
+All three of these states can be set manually by using a different Turing machine constructor and recompiling the program. See [Turing.hpp](src/Turing.hpp).
 
 ### Helpful resources
 [Turing machines for dummies](https://erik-engheim.medium.com/turing-machines-for-dummies-81e8e25471b2)
