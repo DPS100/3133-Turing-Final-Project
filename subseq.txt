@@ -32,7 +32,7 @@ Back to read
 Back to read lock 1
 
 #10
-00#100
+11#1
 
 2N 4> 4>
 2N 2N 2N

@@ -72,25 +72,21 @@ bool Turing::run(bool print) {
 }
 
 bool Turing::run(int msDelay, bool print) {
-    while(this->getCurrentState() != this->accept && this->getCurrentState() != this->decline) {
+    while(getCurrentState() != accept && getCurrentState() != decline) {
         if(msDelay != 0) std::this_thread::sleep_for(std::chrono::milliseconds(msDelay));
-        if(print) {
-            std::cout << std::endl << this->getCurrentState()->getName() << std::endl;
-            printTape();
-        }
-        this->step();
+        step(print);
     }
-    return this->getCurrentState() == this->accept;
+    return getCurrentState() == accept;
 }
 
 State* Turing::step(bool print) {
-    // Execute instruction
-    char symbol = read();
     if(print) {
-        std::cout << this->getCurrentState()->getName() << std::endl;
+        std::cout << std::endl << getCurrentState()->getName() << std::endl;
         printTape();
     }
-    std::string action = this->parse(symbol);
+    // Execute instruction
+    char symbol = read();
+    std::string action = parse(symbol);
     switch(action.at(0)) {
         case State::Action::RIGHT:
             move(true);
@@ -101,11 +97,13 @@ State* Turing::step(bool print) {
         case State::Action::WRITE:
             write(action.at(1));
             break;
-        default:
         case State::Action::NO_OP:
             break;
+        default:
+            throw std::runtime_error("Read unknown action");
+            break;
     }
-    return this->getCurrentState();
+    return getCurrentState();
 }
 
 State* Turing::step() {
