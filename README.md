@@ -14,7 +14,7 @@ This is an overview of the algorithm:
 3. Erase last character in first string.
 4. Move left. If empty string, accept. If not, go back to step 1.
  
-This had an issue where if it erased the entire second string to find the target character, the next attempt to find a character would enter a loop where it would never find a string.
+This had an issue where if it erased the entire second string to find the target character, the next attempt to find a character would enter a loop where it would never find a string. (Happened with the tape `01#100`).
 
 So I inserted an extra step between 1 and 2:
 - Read second to last character in first string. If empty, simply continue with step 1. Otherwise, append the second string with a null character, then the inverse of the second to last character. Then continue from step 1.
@@ -40,7 +40,7 @@ See [subseq.txt](subseq.txt) for a demo input file.
 The input file to define a Turing machine is formatted like so:
 - *Blank line*
 - State names
-- *Blank like*
+- *Blank line*
 - Alphabet
 - Input tape
 - *Blank line*
