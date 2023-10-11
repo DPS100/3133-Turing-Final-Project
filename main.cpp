@@ -13,22 +13,43 @@ void trimString(std::string* string, int trimSize);
  * @return int 
  */
 int main(int argc, char** argv) {
+    int delayMs = 0;
+    bool prettyPrinting = false;
+    std::string filename;
+
     // Read args
-    if(argc != 2) {
-        std::cerr << "Invalid number of arguments" << std::endl;
-        return 1;
+    for(int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        if(arg == "-h" || arg == "--help") {
+            std::cout << "Usage: " << argv[0] << " [options]" << std::endl;
+            std::cout << "Options:" << std::endl;
+            std::cout << "  -h, --help   Show help message" << std::endl;
+            std::cout << "  -i, --input  Path to target input file. See README for more information on how this is formatted." << std::endl;
+            std::cout << "  -p, --print  Enable pretty printing. Output progress of simulated Turing machine to the console." << std::endl;
+            std::cout << "  -d, --delay  Delay time between transition between states. Automatically enables pretty printing." << std::endl;
+            return 1;
+        } else if(arg == "-i" || arg == "--input") {
+            filename = argv[++i];
+        } else if(arg == "-d" || arg == "--delay") {
+            delayMs = std::stoi(argv[++i]);
+            prettyPrinting = true;
+        } else if(arg == "-p" || arg == "--print") {
+            prettyPrinting = true;    
+        } else {
+            std::cout << "Unknown option \"" << arg << "\". Use \"-h\" or see the readme for help." << std::endl;
+            return 1; 
+        }
     }
 
     // Read input file
-    std::string filename = argv[1];
     std::ifstream inputFile(filename);
     if (!inputFile.is_open()) {
-        std::cerr << "Failed to open the input file." << std::endl;
+        std::cerr << "Failed to open the input file. Run with the -h flag for more options." << std::endl;
         return 1;
     }
 
-    // Temporarily set alphabet
-    std::string alphabet = "";
+    // Temporarily set alphabet - avoids states being unhappy with alphabet not existing
+    std::string alphabet;
     AlphabetWrapper::setAlphabet(&alphabet);
 
     // Read states at top of file
@@ -49,14 +70,14 @@ int main(int argc, char** argv) {
     // Read language
     std::getline(inputFile, alphabet);
     trimString(&alphabet, emptyLineLength);
-    std::cout << "Alphabet: " << alphabet << std::endl;
+    // std::cout << "Alphabet: " << alphabet << std::endl;
     AlphabetWrapper::setAlphabet(&alphabet);
 
     // Read starting tape
     std::string tape;
     std::getline(inputFile, tape);
     trimString(&tape, emptyLineLength);
-    std::cout << "Tape: " << tape << std::endl;
+    // std::cout << "Tape: " << tape << std::endl;
 
     // Read transitions
     std::string transitionStrings[alphabet.length()];
@@ -75,6 +96,10 @@ int main(int argc, char** argv) {
                 int targetState = stoi(transitionStrings[i].substr(0, digitIndex)) - 1;
                 std::string instruction = transitionStrings[i].substr(digitIndex);
                 // std::cout << targetState << instruction << std::endl;
+                if(targetState >= states.size()) {
+                    std::clog << "Error reading input file: Number of states defined exceeds number of states declared." << std::endl;
+                    return 1;
+                }
                 transitions.emplace(symbol, Transition(instruction, states.at(targetState)));
                 // std::cout << "When reading symbol " << symbol << ", take action " << instruction << " and move to state " << targetState << ": " << states.at(targetState)->getName() << std::endl;
             }
@@ -82,12 +107,10 @@ int main(int argc, char** argv) {
         }
         index++;
     }
-    states.shrink_to_fit();
 
     Turing machine(states, tape);
-    for(int i = 0; i < 20; i++) {
-        machine.step(true);
-    }
+    bool result = machine.run(delayMs, prettyPrinting);
+    std::cout << "\nTuring machine halted with code: " << (result ? " Accept " : "Decline") << std::endl;
     return 0;
 }
 

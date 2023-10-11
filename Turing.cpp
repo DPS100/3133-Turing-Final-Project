@@ -1,6 +1,8 @@
 #include "Turing.hpp"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 Turing::Turing(std::string input) :
     head(0),
@@ -58,9 +60,25 @@ void Turing::move(bool positive) {
 }
 
 bool Turing::run() {
+    return run(0, false);
+}
+
+bool Turing::run(int msDelay) {
+    return run(msDelay, false);
+}
+
+bool Turing::run(bool print) {
+    return run(0, print);
+}
+
+bool Turing::run(int msDelay, bool print) {
     while(this->getCurrentState() != this->accept && this->getCurrentState() != this->decline) {
-        printTape();
-        std::cout << this->step(false)->getName() << std::endl;
+        if(msDelay != 0) std::this_thread::sleep_for(std::chrono::milliseconds(msDelay));
+        if(print) {
+            std::cout << std::endl << this->getCurrentState()->getName() << std::endl;
+            printTape();
+        }
+        this->step();
     }
     return this->getCurrentState() == this->accept;
 }
@@ -81,7 +99,7 @@ State* Turing::step(bool print) {
             move(false);
             break;
         case State::Action::WRITE:
-            tape.at(head) = action.at(1);
+            write(action.at(1));
             break;
         default:
         case State::Action::NO_OP:
@@ -94,27 +112,24 @@ State* Turing::step() {
     return step(false);
 }
 
-std::string Turing::getTape() {
-    std::string tapeString = "";
-    for(const char c : Turing::negativeTape) {
-        std::string tempString = std::string(1, c);
-        tempString.append(tapeString);
-        tapeString = tempString;
-    }
-    for(const char c : Turing::tape) {
-        tapeString.append(std::string(1,c));
-    }
-    return tapeString;
-}
-
 void Turing::printTape() {
-    for(int i = (head < 0 ? head : 0); i < tape.size(); i++) {
+    // Extend tapes
+    read();
+
+    // Negative tape
+    for(int i = negativeTape.size() - 1; i >= 0; i--) {
         char c;
-        if(i < 0) {
-            c = negativeTape.at(-i - 1);
+        c = negativeTape.at(i);
+        if(i == -head - 1) {
+            std::cout << '[' <<  c << ']';
         } else {
-            c = tape.at(i);
+            std::cout << c;
         }
+    }
+    // Positive tape
+    for(int i = 0; i < tape.size(); i++) {
+        char c;
+        c = tape.at(i);
         if(i == head) {
             std::cout << '[' <<  c << ']';
         } else {

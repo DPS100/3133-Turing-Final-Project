@@ -53,6 +53,8 @@ class Turing : public DFA{
          * @return false 
          */
         bool run(int msDelay);
+        bool run(bool print);
+        bool run(int msDelay, bool print);
         /**
          * @brief Advance one step on the turing machine, and return the current state
          * 
@@ -60,12 +62,6 @@ class Turing : public DFA{
          */
         State* step();
         State* step(bool print);
-        /**
-         * @brief Get the Tape object
-         * 
-         * @return std::string String representation of tape
-         */
-        std::string getTape();
         void printTape();
         void populateTape(std::string input);
 };
