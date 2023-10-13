@@ -72,10 +72,11 @@ bool Turing::run(bool print) {
 }
 
 bool Turing::run(int msDelay, bool print) {
-    while(getCurrentState() != accept && getCurrentState() != decline) {
+    do {
         if(msDelay != 0) std::this_thread::sleep_for(std::chrono::milliseconds(msDelay));
         step(print);
     }
+    while(getCurrentState() != accept && getCurrentState() != decline);
     return getCurrentState() == accept;
 }
 

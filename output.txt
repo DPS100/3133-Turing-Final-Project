@@ -1,0 +1,143 @@
+
+Start
+[0]0#100
+
+Find Target
+0[0]#100
+
+Find Target
+00[#]100
+
+Move pre-target
+0[0]#100
+
+Pre-target
+[0]0#100
+
+Append 1 lock 1
+0[0]#100
+
+Append 1 lock 2
+00[#]100
+
+Append 1 lock 2
+00#[1]00
+
+Append 1 unlock
+00#1[0]0
+
+Append 1 unlock
+00#10[0]
+
+Append 1 unlock
+00#100[#]
+
+Append 1
+00#100#[#]
+
+Back to read lock 1
+00#100#[1]
+
+Back to read lock 2
+00#100[#]1
+
+Back to read lock 2
+00#10[0]#1
+
+Back to read unlock
+00#1[0]0#1
+
+Back to read unlock
+00#[1]00#1
+
+Back to read unlock
+00[#]100#1
+
+Back to read
+0[0]#100#1
+
+Go end Find 0 lock
+00[#]100#1
+
+Go end Find 0 lock
+00#[1]00#1
+
+Go end Find 0 unlock
+00#1[0]0#1
+
+Go end Find 0 unlock
+00#10[0]#1
+
+Go end Find 0 unlock
+00#100[#]1
+
+Find 0
+00#10[0]#1
+
+Found Target
+00#10[#]#1
+
+Go end lock
+00#1[0]##1
+
+Go end lock
+00#[1]0##1
+
+Go end lock
+00[#]10##1
+
+Write over End
+0[0]#10##1
+
+Go Target
+0[#]#10##1
+
+Move pre-target
+[0]##10##1
+
+Pre-target
+[#]0##10##1
+
+Target
+#[0]##10##1
+
+Go end Find 0 lock
+#0[#]#10##1
+
+Go end Find 0 lock
+#0#[#]10##1
+
+Go end Find 0 lock
+#0##[1]0##1
+
+Go end Find 0 unlock
+#0##1[0]##1
+
+Go end Find 0 unlock
+#0##10[#]#1
+
+Find 0
+#0##1[0]##1
+
+Found Target
+#0##1[#]##1
+
+Go end lock
+#0##[1]###1
+
+Go end lock
+#0#[#]1###1
+
+Write over End
+#0[#]#1###1
+
+Write over End
+#[0]##1###1
+
+Go Target
+#[#]##1###1
+
+Move pre-target
+[#]###1###1
+
+Turing machine halted with code:  Accept 
